@@ -10,41 +10,35 @@ Perform these steps on all hosts.
 Prerequisites
 -------------
 
-1. Upgrade the packages on your host:
+    1. Upgrade the packages on your host:
 
-   .. code-block:: console
+       .. code-block:: console
 
-      # yum upgrade
+          # yum upgrade
 
-   .. note::
+       .. note::
 
-      If the upgrade process includes a new kernel, reboot your host to activate it.
+          If the upgrade process includes a new kernel, reboot your host to activate it.
 
-2. Install Python pip:
+    2. Install Python pip:
 
-    .. code-block:: console
+        .. code-block:: console
 
-       # yum install python-pip
+           # yum install python-pip
 
 Enable the Minestack repository
 -------------------------------
 
-.. todo::
+    .. todo::
 
-   Build python packages into RPMs and distribute on PyPi.
-   Create a Minestack RPM repository
+       Build python packages into RPMs and distribute on PyPi.
+       Create a Minestack YUM repository
 
 Finalize the installation
 -------------------------
 
-1. Install the Minestack client:
+    1. Install the Minestack client:
 
-    .. code-block:: console
+        .. code-block:: console
 
-       # pip install https://github.com/minestack/python-minestack-client/archive/someversion.zip
-
-
-
-
-
-
+           # pip install https://github.com/minestack/python-minestack-client/archive/someversion.zip

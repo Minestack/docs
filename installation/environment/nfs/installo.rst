@@ -3,9 +3,9 @@ Compute Nodes
 
 Perform these steps on all compute nodes.
 
-.. todo::
+    .. todo::
 
-   Write NFS guide for compute
+       Write NFS guide for compute
 
 Install and Configure components
 --------------------------------
