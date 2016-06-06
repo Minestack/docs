@@ -42,3 +42,5 @@ Any auto generated passwords or tokens will not be listed.
 +-------------------------+---------------------------------------------+
 | DASH_VAULT_PASSWORD     | Vault password for the Dashboard service    |
 +-------------------------+---------------------------------------------+
+| NFS_USER_PASSWORD       | NFS user password                           |
++-------------------------+---------------------------------------------+

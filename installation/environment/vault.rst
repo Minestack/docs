@@ -44,9 +44,24 @@ Prerequisites
 
     2. Create a PostgreSQL user for Vault:
 
-       .. todo::
+       a. Open the PostgreSQL console:
 
-          Write this step
+          .. code-block:: console
+
+             # sudo -i -u postgres psql
+
+       b. Create the Vault user:
+
+          .. code-block:: sql
+
+             CREATE ROLE vault WITH LOGIN CREATEROLE PASSWORD 'VAULT_DB_PASSWORD';
+
+          Replace VAULT_DB_PASSWORD with a suitable password.
+
+       .. note::
+
+          You can exit the PostgreSQL console by using the :code:`\q` command.
+
 
 Install and Configure components
 --------------------------------
@@ -134,9 +149,24 @@ Install and Configure components
 
     6. Configure the Username & Password Auth Backend
 
-        .. todo::
+        .. code-block:: console
 
-           Write this step
+           $ vault auth-enable userpass
+
+           Successfully enabled 'userpass' at 'userpass'!
+
+    7. Verify Operation
+
+       .. code-block:: console
+
+          $ curl -s http://controller:8200/v1/sys/health
+
+          {
+            "initialized": true,
+            "sealed": false,
+            "standby": false
+          }
+
 
 Configure the Consul Secret Backend
 -----------------------------------
@@ -153,7 +183,7 @@ Configure the Consul Secret Backend
 
        .. code-block:: console
 
-          $ vault write /consul/config/access \
+          $ vault write consul/config/access \
              address=controller:8500 \
              token=VAULT_CONSUL_TOKEN
 
@@ -165,8 +195,8 @@ Configure the Consul Secret Backend
 
        .. code-block:: console
 
-          $ POLICY='service "minestack-" { policy = "write" } check "service:minestack" { policy = "write" }'
-          $ echo $POLICY | base64 | vault write consul/roles/minestack-service policy=-
+          $ POLICY='service "" { policy = "read" } service "minestack-" { policy = "write" } check "service:minestack" { policy = "write" }'
+          $ echo $POLICY | base64 | vault write consul/roles/minestack-service lease=1h policy=-
 
           Success! Data written to: consul/roles/minestack-service
 
@@ -184,13 +214,40 @@ Configure the Consul Secret Backend
 Configure the PostgreSQL Secret Backend
 ---------------------------------------
 
-    .. todo::
+    1. Mount the PostgreSQL secret backend:
 
-       Write this step
+       .. code-block:: console
+
+          $ vault mount postgresql
+
+          Successfully mounted 'postgresql' at 'postgresql'!
+
+    2. Configure the backend:
+
+       .. code-block:: console
+
+          $ vault write postgresql/config/connection \
+             connection_url="postgresql://vault:VAULT_DB_PASSWORD@controller:5432/postgres?sslmode=disabled"
+
+          Success! Data written to: postgresql/config/connection
+
+       Replace VAULT_DB_PASSWORD with vault PostgreSQL user password.
+
+       .. warning::
+
+          We have not setup SSL for PostgreSQL connections. In a production environment SSL should be setup and enabled.
+
+    3. Set the credential lease time:
+
+       .. code-block:: console
+
+          $ vault write postgresql/config/lease lease=1h lease_max=24
+
+          Success! Data written to: postgresql/config/lease
 
 Configure the RabbitMQ Secret Backend
 ---------------------------------------
 
     .. todo::
 
-       Write this step
+       Waiting for RabbitMQ Vault support
