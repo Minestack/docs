@@ -21,7 +21,7 @@ Install and Configure components
 
     2. Edit the :code:`/etc/consul.conf` file:
 
-        .. code-block:: conf
+        .. code-block:: json
 
            {
            	"data_dir": "/var/lib/consul/",

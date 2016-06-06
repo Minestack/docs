@@ -21,7 +21,7 @@ Install and Configure components
 
     2. Edit the :code:`/etc/consul.conf` file:
 
-        .. code-block:: conf
+        .. code-block:: json
 
            {
            	"data_dir": "/var/lib/consul/",
@@ -63,3 +63,9 @@ Verify Operation
         .. code-block:: console
 
            $ curl -s http://controller:8500/v1/status/peers
+
+    2. Browse the web UI at:
+
+        .. code-block:: console
+
+           http://controller:8500/ui/
